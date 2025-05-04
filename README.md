@@ -10,7 +10,7 @@ Server Management &amp; Web Control (SMWC) Search for the effectiveness of your 
 - Custom users (first name, last name, username, profile picture, password changes, description)
 - Live chat with other users
 - Password-protected folders for specific users
--Forums
+- Forums
 - View current and live server status (CPU, RAM, CPU TEMPERATURE, DISK STORAGE)
 - Server Shell/Terminal
 - Turn on/off/restart the server
