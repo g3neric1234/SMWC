@@ -1,6 +1,4 @@
-Perfecto 🚀 — acá te paso el README en **código Markdown listo para copiar/pegar** en tu `README.md`:
 
-````markdown
 # 🌐 SMWC (Server Management & Web Control)  
 
 ⚠️ **Estado actual:** *En desarrollo* ‼️  
@@ -52,30 +50,17 @@ Todo es posible con **SMWC** 🚀
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/usuario/SMWC.git
+git clone https://github.com/g3neric1234/SMWC.git
 
 # Entrar en la carpeta
 cd SMWC
 
 # Instalar dependencias
-npm install
+(soon)
 
 # Ejecutar el proyecto
-npm start
+python3-m http.server 8080
 ````
 
 ---
 
-## 📌 Nota Final
-
-🚧 Este proyecto está en constante construcción.
-👨‍💻 Se aceptan **contribuciones** y **feedback**.
-
-📅 **Versión actual:** `0.1.0-dev`
-
-```
-
----
-
-¿Quieres que también te prepare unos **badges listos para copiar** (por ejemplo: versión, estado del build, licencia, etc.) para colocarlos arriba del todo?
-```
