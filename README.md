@@ -1,66 +1,52 @@
 
 # 🌐 SMWC (Server Management & Web Control)  
 
-⚠️ **Estado actual:** *En desarrollo* ‼️  
+⚠️ **Current status:** *In development.*  
 
-✨ **SMWC** es una plataforma diseñada para la **gestión y control de servidores personales**, ofreciendo una interfaz intuitiva donde podrás **subir, descargar, editar y reproducir** distintos tipos de archivos (texto, código, videos, fotos, música, etc.).  
+✨ **SMWC** is a platform designed for **personal server management and control**, offering an intuitive interface where you can **upload, download, edit, and play** various types of files (text, code, videos, photos, music, etc.).
 
-Todo es posible con **SMWC** 🚀  
-
----
-
-## 📌 Características principales  
-
-| Funcionalidad | Estado | Descripción |
-|---------------|--------|-------------|
-| 📤 **Upload files** | 🚫 | Sube archivos al servidor |
-| 📥 **Download files** | 🚫 | Descarga archivos del servidor |
-| 🎬 **Play media** | 🚫 | Reproduce videos, música e imágenes |
-| 📁 **Create folders** | 🚫 | Organización sencilla mediante carpetas |
-| 📝 **Edit files (incl. code)** | 🚫 | Editor integrado de texto y código |
-| ➕ **User management** | ✴️ | Crear, borrar y bloquear cuentas (admin, user, guest) |
-| 👤 **Custom users** | ✴️ | Perfiles con nombre, foto, descripción y cambios de contraseña |
-| 🧑‍💻 **Live chat** | 🚫 | Chat en tiempo real entre usuarios |
-| 🔐 **Protected folders** | 🚫 | Carpetas con contraseñas específicas por usuario |
-| 📂 **Forums** | 🚫 | Foros internos para usuarios |
-| 📊 **Server status monitor** | ✴️ | CPU, RAM, temperatura, almacenamiento en vivo |
-| 📋 **Server Shell/Terminal** | 🚫 | Acceso directo a la terminal del servidor |
-| 💡 **Server control** | 🚫 | Encender, apagar o reiniciar el servidor |
-| 🗿 **Easy setup** | ✅️ | Instalación y uso simples |
 
 ---
 
-## ✅ Estado de Desarrollo  
+## 📌 Main Features  
 
-- **Terminadas (✅):** `Easy setup`  
-- **Incompletas (✴️):** `User management`, `Custom users`, `Server status monitor`  
-- **Pendientes (🚫):** El resto de funciones  
+| Feature | Status | Description |
+|----------|---------|-------------|
+| 📤 **File Upload** | 🚫 | Upload files to the server |
+| 📥 **File Download** | 🚫 | Download files from the server |
+| 🎬 **Media Player** | 🚫 | Play videos, music, and images |
+| 📁 **Folder Creation** | 🚫 | Organize files into folders |
+| 📝 **File Editor** | 🚫 | Built-in text and code editor |
+| 👥 **User Management** | ✴️ | Add, remove, or block users (admin, user, guest) |
+| 👤 **Custom Profiles** | ✴️ | User profiles with photo, description, and password change |
+| 💬 **Live Chat** | 🚫 | Real-time chat between users |
+| 🔐 **Protected Folders** | 🚫 | Password-protected directories |
+| 💬 **Forums** | 🚫 | Internal discussion forums |
+| 📊 **Server Monitor** | ✴️ | Live CPU, RAM, and storage stats |
+| 💻 **Server Shell** | 🚫 | Access to the server terminal |
+| ⚙️ **Server Control** | 🚫 | Power on, off, or restart the server |
+| 🗿 **Easy Setup** | ✅ | Simple installation and configuration |
 
 ---
 
-## 🚀 Objetivos del Proyecto  
+## 🧩 Development Progress  
 
-- Crear una herramienta **ligera y potente** para la gestión de servidores.  
-- Ofrecer un **panel web moderno**, accesible desde cualquier dispositivo.  
-- Garantizar la **seguridad y privacidad** con usuarios personalizados y carpetas protegidas.  
+- **Completed (✅):** `Easy Setup`  
+- **In Progress (✴️):** `User Management`, `Custom Profiles`, `Server Monitor`  
+- **Pending (🚫):** All other features  
 
 ---
 
-## 🛠️ Instalación (Próximamente)  
+## 🚀 Project Goals  
+
+- Build a **light, powerful tool** for personal server management  
+- Provide a **modern, responsive web panel** accessible from any device  
+- Ensure **security and privacy** through user roles and protected folders  
+
+---
+
+## 🛠️ Installation (Coming Soon)  
 
 ```bash
-# Clonar el repositorio
-git clone https://github.com/g3neric1234/SMWC.git
-
-# Entrar en la carpeta
-cd SMWC
-
-# Instalar dependencias
-(soon)
-
-# Ejecutar el proyecto
-python3-m http.server 8080
-````
-
----
-
+Not ready yet.
+```
