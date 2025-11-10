@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .neon {
+            text-shadow: 0 0 5px #00f, 0 0 10px #00f, 0 0 20px #00f;
+        }
+
+        .menu-item,
+        .user-info {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 1rem;
+            padding: 0.5rem;
+        }
+
+        .menu-item:hover,
+        .user-info:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+        }
+
+        .menu-item:hover svg,
+        .user-info:hover svg {
+            stroke: #0ff;
+        }
+    </style>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("sidebar");
+            menu.classList.toggle("-translate-x-full");
+        }
+
+        async function fetchClientInfo() {
+            const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+        document.getElementById("client-ip").textContent = data.ip;
+        document.getElementById("client-location").textContent = `${data.city}, ${data.region}, ${data.country_name}`;
+        document.getElementById("client-browser").textContent = navigator.userAgent;
+
+    // Detectar el sistema operativo
+        let os = "Unknown OS";
+        if (navigator.userAgent.includes("Linux; Android")) {
+            os = "Android";
+        } else if (navigator.userAgent.includes("Windows")) {
+            os = "Windows";
+        } else if (navigator.userAgent.includes("Linux")) {
+            os = "Linux";
+        }
+        document.getElementById("client-os").textContent = os;
+}
+
+        async function fetchServerStatus() {
+            try {
+                const res = await fetch("http://192.168.1.183:5000/server-status");
+            if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+            }
+        const data = await res.json();
+        console.log("Server Status:", data); // Depuración
+        document.getElementById("server-ip").textContent = data.local_ip || "Unavailable";
+        document.getElementById("server-ram").textContent = `${data.ram_used_gb} GB / ${data.ram_total_gb} GB (${data.ram_percent}%)`;
+        document.getElementById("server-cpu").textContent = `${data.cpu_percent}%`;
+    } catch (error) {
+        console.error("Error fetching server status:", error);
+        document.getElementById("server-ip").textContent = "Error";
+        document.getElementById("server-ram").textContent = "Error";
+        document.getElementById("server-cpu").textContent = "Error";
+    }
+}
+
+        window.onload = () => {
+            fetchClientInfo();
+            fetchServerStatus();
+            setInterval(fetchServerStatus, 1000);
+        };
+    </script>
+</head>
+
+<body class="bg-black text-white font-sans">
+    <!-- Toggle Button -->
+    <button onclick="toggleMenu()" class="fixed top-4 left-4 z-50 bg-zinc-700 p-2 rounded-full shadow-lg md:hidden">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+    </button>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-zinc-900 shadow-lg z-40 p-4 transform transition-transform duration-300 md:translate-x-0 -translate-x-full">
+        <h1 class="text-xl neon font-bold mb-8">Dashboard</h1>
+        <ul class="space-y-4">
+            <li class="menu-item flex items-center space-x-2 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
+                  </svg>
+                  
+                <span>Network Scanning</span>
+            </li>
+            <li class="menu-item flex items-center space-x-2 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
+                  </svg>
+                  
+                <span>Exploits</span>
+            </li>
+            <li class="menu-item flex items-center space-x-2 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
+                  </svg>
+                  
+                <span>Reverse Shells</span>
+            </li>
+            <li class="menu-item flex items-center space-x-2 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9.75 16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+                  </svg>
+                  
+                <span>Password Cracking</span>
+            </li>
+        </ul>
+        <!-- User Info -->
+        <div class="user-info absolute bottom-4 left-4 right-4 flex items-center space-x-4 cursor-pointer">
+            <div class="w-10 h-10 bg-zinc-700 rounded-full flex items-center justify-center">
+                <svg class="w-6 h-6 text-purple-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A8.968 8.968 0 0112 15c2.21 0 4.21.805 5.879 2.137M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+            </div>
+            <div>
+                <h2 class="text-base font-semibold">g3neric</h2>
+                <p class="text-zinc-400 text-xs">Administrator</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="md:ml-64 min-h-screen p-10">
+        <section class="text-center space-y-6">
+            <h1 class="text-4xl font-bold neon">Welcome, g3neric</h1>
+            <p class="text-zinc-400 max-w-xl mx-auto">This is your control center for scanning, exploitation, and monitoring real-time activities. Proceed with caution.</p>
+            <p class="text-zinc-400 max-w-xl mx-auto">Dashboard version 1.2 BETA.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                <div class="bg-zinc-800 p-6 rounded-xl shadow-lg">
+                    <h3 class="text-lg font-bold text-cyan-400 mb-2">Scanning</h3>
+                    <p class="text-sm text-zinc-300">View open ports, OS fingerprinting, and live targets.</p>
+                </div>
+                <div class="bg-zinc-800 p-6 rounded-xl shadow-lg">
+                    <h3 class="text-lg font-bold text-green-400 mb-2">Payloads</h3>
+                    <p class="text-sm text-zinc-300">Generate custom payloads and reverse shells instantly.</p>
+                </div>
+                <div class="bg-zinc-800 p-6 rounded-xl shadow-lg">
+                    <h3 class="text-lg font-bold text-red-400 mb-2">Vulnerabilities</h3>
+                    <p class="text-sm text-zinc-300">Track CVEs and exploit vectors across your targets.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 text-left">
+                <div class="bg-zinc-800 p-6 rounded-xl shadow-lg">
+                    <h3 class="text-lg font-bold  mb-4">Client Info</h3>
+                    <div class="space-y-2">
+                        <div class="bg-zinc-700 rounded-lg p-3 shadow-inner flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                              </svg>
+                              
+                            <span><strong>IP:</strong> <span id="client-ip">Loading...</span></span>
+                        </div>
+                        <div class="bg-zinc-700 rounded-lg p-3 shadow-inner flex items-center space-x-2">
+                            <!-- Ícono del navegador -->
+                            <div class="w-6 h-6 flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-full h-full">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+                                </svg>
+                            </div>
+                            <!-- Texto del navegador -->
+                            <span><strong>Browser:</strong> <span id="client-browser">Loading...</span></span>
+                        </div>
+                        <div class="bg-zinc-700 rounded-lg p-3 shadow-inner flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                              </svg>
+                              
+                            <span><strong>Location:</strong> <span id="client-location">Loading...</span></span>
+                        </div>
+                        <div class="bg-zinc-700 rounded-lg p-3 shadow-inner flex items-center space-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" class="size-6">
+                                <path fill-rule="evenodd" d="M2.25 6a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3v12a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V6Zm3.97.97a.75.75 0 0 1 1.06 0l2.25 2.25a.75.75 0 0 1 0 1.06l-2.25 2.25a.75.75 0 0 1-1.06-1.06l1.72-1.72-1.72-1.72a.75.75 0 0 1 0-1.06Zm4.28 4.28a.75.75 0 0 0 0 1.5h3a.75.75 0 0 0 0-1.5h-3Z" clip-rule="evenodd" />
+                              </svg>
+                              
+                            <span><strong>OS:</strong> <span id="client-os">Loading...</span></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-zinc-800 p-6 rounded-xl shadow-lg">
+    <h3 class="text-lg font-bold mb-4">Server Status</h3>
+    <div class="space-y-2">
+        <!-- RAM -->
+        <div class="bg-zinc-700 rounded-lg p-3 shadow-inner flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18m-7.5-6.75h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V13.5Zm0 2.25h.008v.008H8.25v-.008Zm0 2.25h.008v.008H8.25V18Zm2.498-6.75h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V13.5Zm0 2.25h.007v.008h-.007v-.008Zm0 2.25h.007v.008h-.007V18Zm2.504-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5Zm0 2.25h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V18Zm2.498-6.75h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V13.5ZM8.25 6h7.5v2.25h-7.5V6ZM12 2.25c-1.892 0-3.758.11-5.593.322C5.307 2.7 4.5 3.65 4.5 4.757V19.5a2.25 2.25 0 0 0 2.25 2.25h10.5a2.25 2.25 0 0 0 2.25-2.25V4.757c0-1.108-.806-2.057-1.907-2.185A48.507 48.507 0 0 0 12 2.25Z" />
+              </svg>
+              
+            <span><strong>RAM:</strong> <span id="server-ram">Loading...</span></span>
+        </div>
+        <!-- CPU -->
+        <div class="bg-zinc-700 rounded-lg p-3 shadow-inner flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Zm.75-12h9v9h-9v-9Z" />
+              </svg>
+              
+            <span><strong>CPU:</strong> <span id="server-cpu">Loading...</span></span>
+        </div>
+        <!-- Local IP -->
+        <div class="bg-zinc-700 rounded-lg p-3 shadow-inner flex items-center space-x-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+              </svg>
+              
+            <span><strong>IP:</strong> <span id="server-ip">Loading...</span></span>
+        </div>
+    </div>
+</div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

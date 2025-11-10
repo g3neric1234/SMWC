@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /smwc/
+    ErrorDocument 400 /smwc/errors/error.php?code=400
+    ErrorDocument 401 /smwc/errors/error.php?code=401
+    ErrorDocument 403 /smwc/errors/error.php?code=403
+    ErrorDocument 404 /smwc/errors/error.php?code=404
+    ErrorDocument 500 /smwc/errors/error.php?code=500
+    ErrorDocument 503 /smwc/errors/error.php?code=503
+    RewriteCond %{REQUEST_URI} !^/smwc/errors/error\.php [NC]
+    RewriteRule ^login/?$ login.php [L,NC]
+    RewriteRule ^menu/?$ menu.php [L,NC]
+    RewriteRule ^register/?$ register.php [L,NC]
+    RewriteCond %{THE_REQUEST} \s/smwc/([^.]+)\.php [NC]
+    RewriteRule ^ %1 [R=301,L,NE]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.*)$ $1.php [L]
+</IfModule>
