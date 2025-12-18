@@ -36,7 +36,7 @@
 <table>
   <tr>
     <td><img src="images/login.webp" alt="Login" width="300"/></td>
-    <td><img src="images/main.webp" alt="Main Dashboard" width="300"/></td>
+    <td><img src="images/main.png" alt="Main Dashboard" width="300"/></td>
   </tr>
   <tr>
     <td align="center"><i>Login</i></td>
@@ -85,4 +85,5 @@
 Not ready yet.
 
 ```
+
 
