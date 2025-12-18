@@ -30,31 +30,33 @@
 
 ---
 
+## 🖼️ Screenshots
+
 <div align="center">
 <table>
   <tr>
-    <td><img src="login.webp" alt="Login" width="300"/></td>
-    <td><img src="main.webp" alt="Main Dashboard" width="300"/></td>
+    <td><img src="images/login.webp" alt="Login" width="300"/></td>
+    <td><img src="images/main.webp" alt="Main Dashboard" width="300"/></td>
   </tr>
   <tr>
     <td align="center"><i>Login</i></td>
     <td align="center"><i>Main Dashboard</i></td>
   </tr>
   <tr>
-    <td><img src="filemanager.webp" alt="File manager" width="300"/></td>
-    <td><img src="register.webp" alt="Register Form" width="300"/></td>
+    <td><img src="images/filemanager.webp" alt="File manager" width="300"/></td>
+    <td><img src="images/register.webp" alt="Register Form" width="300"/></td>
   </tr>
   <tr>
     <td align="center"><i>File Manager</i></td>
-    <td align="center"><i>Register Form</i></td>
+    <td align="center"><i>Register</i></td>
   </tr>
-    <tr>
-    <td><img src="terminal.webp" alt="Terminal" width="300"/></td>
-    <td><img src="userprofile.webp" alt="User Profile" width="300"/></td>
+  <tr>
+    <td><img src="images/terminal.webp" alt="Terminal" width="300"/></td>
+    <td><img src="images/userprofile.webp" alt="User Profile" width="300"/></td>
   </tr>
   <tr>
     <td align="center"><i>Terminal</i></td>
-    <td align="center"><i>User profile</i></td>
+    <td align="center"><i>User Profile</i></td>
   </tr>
 </table>
 </div>
@@ -83,3 +85,4 @@
 Not ready yet.
 
 ```
+
